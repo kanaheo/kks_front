@@ -8,6 +8,7 @@ import Button from "../ui/Button";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api";
+import SocialButtons from "../ui/SocialButtons";
 
 const LoginSchema = z.object({
   email: z.string().email({ message: "올바른 이메일을 입력해주세요." }),
@@ -52,27 +53,7 @@ export default function LoginForm() {
       <div className="text-center my-4 text-zinc-400">또는</div>
 
       <div className="flex flex-col gap-3">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => (window.location.href = "http://localhost:8080/oauth2/authorization/github")}
-        >
-          <div className="flex items-center justify-center gap-2">
-            <FaGithub />
-            GitHub 로그인
-          </div>
-        </Button>
-
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => (window.location.href = "http://localhost:8080/oauth2/authorization/google")}
-        >
-          <div className="flex items-center justify-center gap-2">
-            <FaGoogle />
-            Google 로그인
-          </div>
-        </Button>
+        <SocialButtons />
       </div>
 
       <div className="text-center mt-6">
