@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 
 export const LogoutButton = () => {
   const router = useRouter();
+
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/");
+      window.location.reload();
     } catch (error) {
       alert("로그아웃 실패");
     }

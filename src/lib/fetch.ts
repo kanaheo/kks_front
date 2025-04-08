@@ -1,7 +1,7 @@
 const API_BASE = "http://localhost:8080/api";
 
 export const fetchGet = async (url: string) => {
-  const res = await fetch(`${API_BASE}/users${url}`, {
+  const res = await fetch(`${API_BASE + url}`, {
     method: "GET",
     credentials: "include",
   });
@@ -10,7 +10,7 @@ export const fetchGet = async (url: string) => {
   return res.json();
 };
 
-export const fetchPost = async (url: string, data?: unknown) => {
+export const fetchPost = async (url: string, data?: unknown, returnJson = false) => {
   const options: RequestInit = {
     method: "POST",
     credentials: "include",
@@ -23,8 +23,9 @@ export const fetchPost = async (url: string, data?: unknown) => {
     options.body = JSON.stringify(data);
   }
 
-  const res = await fetch(`${API_BASE}/users${url}`, options);
+  const res = await fetch(`${API_BASE + url}`, options);
 
   if (!res.ok) throw new Error("POST 요청 실패");
-  return res;
+
+  return returnJson ? res.json() : res;
 };
