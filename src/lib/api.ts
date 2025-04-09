@@ -7,3 +7,5 @@ export const logout = () => fetchPost("/users/logout", null);
 export const getMe = () => fetchGet("/users/me");
 
 export const signup = (data: { email: string; nickname: string; password: string }) => fetchPost("/users/signup", data);
+
+export const createProduct = (formData: FormData) => fetchPost("/products", formData, true);
