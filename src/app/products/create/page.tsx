@@ -9,12 +9,14 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { fetchPost } from "@/lib/fetch";
 import { createProduct } from "@/lib/api";
+import { CATEGORY_LIST } from "@/lib/constants/categories";
 
 const schema = z.object({
   title: z.string().min(1, "제목을 입력해주세요."),
   description: z.string().min(1, "설명을 입력해주세요."),
   price: z.string().min(1, "가격을 입력해주세요."),
   location: z.string().min(1, "거래지역을 입력해주세요."),
+  category: z.string().min(1, "카테고리를 선택해주세요."),
   images: z.any(),
 });
 
@@ -38,12 +40,14 @@ export default function ProductCreatePage() {
       price: string;
       location: string;
       images?: FileList;
+      category: string;
     }) => {
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("description", data.description);
       formData.append("price", data.price);
       formData.append("location", data.location);
+      formData.append("category", data.category);
 
       if (data.images) {
         Array.from(data.images).forEach((file) => {
@@ -85,6 +89,19 @@ export default function ProductCreatePage() {
 
         <Input type="text" placeholder="거래지역" {...register("location")} />
         {errors.location && <p className="text-red-400 text-sm">{errors.location.message}</p>}
+
+        <select
+          {...register("category")}
+          required
+          className="border px-3 py-2 rounded bg-zinc-800 text-white placeholder-zinc-500"
+        >
+          <option value="">카테고리를 선택하세요</option>
+          {CATEGORY_LIST.map((cat) => (
+            <option key={cat.name} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
 
         <Input type="file" accept="image/*" multiple {...register("images")} />
 

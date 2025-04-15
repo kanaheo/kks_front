@@ -25,7 +25,7 @@ export default function HeaderClient({ nickname, isLoggedIn }: Props) {
 
         {isLoggedIn ? (
           <>
-            <Link href="/product-create" className={navItemClass}>
+            <Link href="/product/create" className={navItemClass}>
               <PackagePlus size={16} /> 상품등록
             </Link>
             <Link href="/mypage" className={navItemClass}>
