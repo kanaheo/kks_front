@@ -14,3 +14,7 @@ export const createProduct = (formData: FormData) => fetchPost("/products", form
 export const getProductsByCategory = async (category: string): Promise<ProductResponse[]> => {
   return await fetchGet(`/products?category=${encodeURIComponent(category)}`);
 };
+
+export const getProductById = async (id: string): Promise<ProductResponse> => {
+  return await fetchGet(`/products/${id}`);
+};

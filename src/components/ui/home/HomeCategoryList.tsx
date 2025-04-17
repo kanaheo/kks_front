@@ -58,7 +58,7 @@ export default function HomeCategoryList() {
         {CATEGORY_LIST.map((c, idx) => (
           <Link
             key={idx}
-            href={`/products/${encodeURIComponent(c.name)}`}
+            href={`/category/${encodeURIComponent(c.name)}`}
             className="bg-[#3c3c3c] hover:bg-[#4b4b4b] rounded-xl w-[90px] h-[90px] flex flex-col items-center justify-center"
           >
             <div className="mb-4">{React.cloneElement(c.icon, { size: 24, color: getIconColor(c.name) })}</div>

@@ -17,15 +17,13 @@ export default function ProductCard({ product }: Props) {
     : "방금 전";
 
   return (
-    <Link href={`/products/detail/${product.id}`}>
-      <div className="bg-zinc-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition-all">
-        <div className="relative w-full h-64">
+    <Link href={`/products/${product.id}`}>
+      <div className="max-w-sm border border-gray-200 rounded-sm shadow-sm dark:border-gray-700 bg-zinc-800 hover:shadow-lg transition-all overflow-hidden">
+        <div className="relative w-full h-48 bg-gray-300 dark:bg-gray-700">
           {product.imageUrl ? (
             <Image src={product.imageUrl} alt={product.title} fill className="object-cover" />
           ) : (
-            <div className="w-full h-full bg-zinc-700 flex items-center justify-center text-white text-sm">
-              이미지 없음
-            </div>
+            <div className="w-full h-full flex items-center justify-center text-white text-sm">이미지 없음</div>
           )}
         </div>
         <div className="p-4">
