@@ -5,7 +5,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api";
 import SocialButtons from "../ui/SocialButtons";
@@ -29,7 +28,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginInput) => {
     try {
-      await login(data);
+      const user = await login(data);
       router.push("/");
     } catch (err) {
       alert("로그인 실패!");
