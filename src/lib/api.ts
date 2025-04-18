@@ -18,3 +18,11 @@ export const getProductsByCategory = async (category: string): Promise<ProductRe
 export const getProductById = async (id: string): Promise<ProductResponse> => {
   return await fetchGet(`/products/${id}`);
 };
+
+export const requestPayment = async (productId: string) => {
+  return await fetchPost("/payments/request", { productId }, true);
+};
+
+export const getOrderById = async (orderId: string) => {
+  return await fetchGet(`/api/orders/${orderId}`);
+};
