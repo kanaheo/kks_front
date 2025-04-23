@@ -23,3 +23,11 @@ export type User = {
   nickname: string;
   isSocial: boolean;
 };
+
+export type Paymant = {
+  recipient: string;
+  address: string;
+  phone: string;
+  productId: number;
+  paymentMethodId: string;
+};
