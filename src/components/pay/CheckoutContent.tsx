@@ -3,14 +3,14 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import { Product } from "@/types/types";
-import { requestOrder } from "@/lib/api";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import { Product } from "@/types/types";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
+import CheckoutCardInput from "./CheckoutCardInput";
+import { handleCheckoutSubmit } from "@/lib/payment/handleCheckoutSubmit";
 
-// ✅ 유효성 검사 스키마 정의
 const schema = z.object({
   recipient: z.string().min(1, "받는 사람을 입력해주세요"),
   address: z.string().min(1, "주소를 입력해주세요"),
@@ -28,34 +28,24 @@ export default function CheckoutContent({ product }: { product: Product }) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
     if (!stripe || !elements) return;
 
-    const cardElement = elements.getElement(CardElement);
-    if (!cardElement) return;
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-
-    if (error || !paymentMethod) {
-      alert(error?.message || "결제 오류");
-      return;
-    }
-
     try {
-      const res = await requestOrder({
-        productId: product.id,
-        paymentMethodId: paymentMethod.id,
-        ...data,
+      const orderId = await handleCheckoutSubmit({
+        data: {
+          ...data,
+          productId: product.id,
+          paymentMethodId: "", // 내부에서 실제 결제 ID 사용
+        },
+        stripe,
+        elements,
+        product,
       });
 
-      router.push(`/orders/${res.orderId}`);
+      router.push(`/orders/${orderId}`);
     } catch (err: unknown) {
       if (err instanceof Error) {
         alert("결제 실패: " + err.message);
@@ -80,22 +70,9 @@ export default function CheckoutContent({ product }: { product: Product }) {
         {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone.message}</p>}
       </div>
 
-      <div className="p-4 bg-zinc-800 rounded">
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#ffffff",
-                "::placeholder": { color: "#a3a3a3" },
-              },
-              invalid: { color: "#ef4444" },
-            },
-          }}
-        />
-      </div>
+      <CheckoutCardInput />
 
-      <Button variant="primary" type="submit" disabled={isSubmitting}>
+      <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "결제 중..." : "💳 결제하기"}
       </Button>
     </form>
