@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ProductResponse } from "@/types/types";
+import { Product } from "@/types/types";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale/ko";
 
 interface Props {
-  product: ProductResponse;
+  product: Product;
 }
 
 export default function ProductCard({ product }: Props) {

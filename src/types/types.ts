@@ -5,7 +5,7 @@ export type Category = {
   icon: JSX.Element;
 };
 
-export type ProductResponse = {
+export type Product = {
   id: number;
   title: string;
   description: string;
