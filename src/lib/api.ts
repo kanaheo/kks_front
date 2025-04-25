@@ -36,3 +36,7 @@ export const requestOrder = async (orderData: {
 }) => {
   return await fetchPost("/orders", orderData, true);
 };
+
+export const getOrderByOrderNumber = async (orderNumber: string) => {
+  return await fetchGet(`/orders/order-number/${orderNumber}`);
+};

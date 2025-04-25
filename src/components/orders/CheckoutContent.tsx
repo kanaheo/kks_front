@@ -34,7 +34,7 @@ export default function CheckoutContent({ product }: { product: Product }) {
     if (!stripe || !elements) return;
 
     try {
-      const orderId = await handleCheckoutSubmit({
+      const orderNumber = await handleCheckoutSubmit({
         data: {
           ...data,
           productId: product.id,
@@ -45,7 +45,7 @@ export default function CheckoutContent({ product }: { product: Product }) {
         product,
       });
 
-      router.push(`/orders/${orderId}`);
+      router.push(`/orders/${orderNumber}`);
     } catch (err: unknown) {
       if (err instanceof Error) {
         alert("결제 실패: " + err.message);

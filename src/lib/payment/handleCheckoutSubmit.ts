@@ -13,7 +13,7 @@ export const handleCheckoutSubmit = async ({
   stripe: Stripe | null;
   elements: StripeElements | null;
   product: Product;
-}): Promise<number> => {
+}): Promise<string> => {
   if (!stripe || !elements) throw new Error("Stripe가 준비되지 않았습니다.");
 
   const cardElement = elements.getElement(CardElement);
@@ -26,11 +26,11 @@ export const handleCheckoutSubmit = async ({
 
   if (error || !paymentMethod) throw new Error(error?.message || "결제 실패");
 
-  const orderId = await requestOrder({
+  const res = await requestOrder({
     ...data,
     productId: product.id,
     paymentMethodId: paymentMethod.id,
   });
 
-  return orderId;
+  return res.orderNumber;
 };

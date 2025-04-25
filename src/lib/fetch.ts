@@ -1,12 +1,22 @@
 const API_BASE = "http://localhost:8080/api";
 
 export const fetchGet = async (url: string) => {
-  const res = await fetch(`${API_BASE + url}`, {
+  const fullUrl = `${API_BASE}${url}`;
+  const res = await fetch(fullUrl, {
     method: "GET",
     credentials: "include",
   });
 
-  if (!res.ok) throw new Error("GET 요청 실패");
+  const contentType = res.headers.get("content-type");
+
+  if (!res.ok) {
+    throw new Error(`[GET 실패] ${res.status}: ${fullUrl}`);
+  }
+
+  if (!contentType || !contentType.includes("application/json")) {
+    throw new Error(`[GET 실패] JSON 응답 아님: ${fullUrl}`);
+  }
+
   return res.json();
 };
 

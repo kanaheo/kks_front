@@ -30,4 +30,5 @@ export type Order = {
   phone: string;
   productId: number;
   paymentMethodId: string;
+  orderNumber?: string;
 };
