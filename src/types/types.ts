@@ -24,7 +24,7 @@ export type User = {
   isSocial: boolean;
 };
 
-export type Paymant = {
+export type Order = {
   recipient: string;
   address: string;
   phone: string;

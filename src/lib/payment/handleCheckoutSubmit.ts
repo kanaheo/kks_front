@@ -1,7 +1,7 @@
 import { Stripe, StripeElements } from "@stripe/stripe-js";
 import { CardElement } from "@stripe/react-stripe-js";
 import { requestOrder } from "@/lib/api";
-import { Product, Paymant } from "@/types/types";
+import { Product, Order } from "@/types/types";
 
 export const handleCheckoutSubmit = async ({
   data,
@@ -9,7 +9,7 @@ export const handleCheckoutSubmit = async ({
   elements,
   product,
 }: {
-  data: Paymant;
+  data: Order;
   stripe: Stripe | null;
   elements: StripeElements | null;
   product: Product;
