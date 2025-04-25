@@ -8,7 +8,7 @@ type Props = {
   productId: string;
 };
 
-export default function PayButton({ productId }: Props) {
+export default function OrderButton({ productId }: Props) {
   const router = useRouter();
 
   const handlePayment = async () => {

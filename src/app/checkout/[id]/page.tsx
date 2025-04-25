@@ -1,6 +1,6 @@
 import { getProductById } from "@/lib/api";
 import { notFound } from "next/navigation";
-import CheckoutForm from "@/components/pay/CheckoutForm"; // 👈 요걸 새로 만들자!
+import CheckoutForm from "@/components/orders/CheckoutForm"; // 👈 요걸 새로 만들자!
 
 type Props = {
   params: Promise<{ id: string }>;
