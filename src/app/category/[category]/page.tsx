@@ -1,6 +1,6 @@
 import ProductCard from "@/components/ui/products/ProductCard";
 import { getProductsByCategory } from "@/lib/api";
-import { ProductResponse } from "@/types/types";
+import { Product } from "@/types/types";
 
 type Props = {
   params: Record<string, string>;
@@ -8,7 +8,7 @@ type Props = {
 
 export default async function ProductListPage(props: Props) {
   const category = decodeURIComponent((await props.params).category);
-  const products: ProductResponse[] = await getProductsByCategory(category);
+  const products: Product[] = await getProductsByCategory(category);
 
   await new Promise((res) => setTimeout(res, 1000));
 

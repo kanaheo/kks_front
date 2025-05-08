@@ -5,7 +5,7 @@ export type Category = {
   icon: JSX.Element;
 };
 
-export type ProductResponse = {
+export type Product = {
   id: number;
   title: string;
   description: string;
@@ -22,4 +22,21 @@ export type User = {
   email: string;
   nickname: string;
   isSocial: boolean;
+};
+
+export type Order = {
+  recipient: string;
+  address: string;
+  phone: string;
+  productId: number;
+  paymentMethodId: string;
+  orderNumber?: string;
+};
+
+// 주문 이력
+export type OrderSummary = {
+  orderNumber: string;
+  productName: string;
+  productImageUrl: string | null;
+  createdAt: string;
 };
