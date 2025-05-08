@@ -32,3 +32,11 @@ export type Order = {
   paymentMethodId: string;
   orderNumber?: string;
 };
+
+// 주문 이력
+export type OrderSummary = {
+  orderNumber: string;
+  productName: string;
+  productImageUrl: string | null;
+  createdAt: string;
+};

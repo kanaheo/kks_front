@@ -1,5 +1,5 @@
 import { Product } from "@/types/types";
-import { fetchGet, fetchPost } from "./fetch";
+import { fetchGet, fetchGetWithCookie, fetchPost } from "./fetch";
 
 export const login = (data: { email: string; password: string }) => fetchPost("/users/login", data, true);
 
@@ -23,10 +23,6 @@ export const requestPayment = async (productId: string) => {
   return await fetchPost("/payments/request", { productId }, true);
 };
 
-export const getOrderById = async (orderId: string) => {
-  return await fetchGet(`/api/orders/${orderId}`);
-};
-
 export const requestOrder = async (orderData: {
   productId: number;
   paymentMethodId: string;
@@ -39,4 +35,8 @@ export const requestOrder = async (orderData: {
 
 export const getOrderByOrderNumber = async (orderNumber: string) => {
   return await fetchGet(`/orders/order-number/${orderNumber}`);
+};
+
+export const getMyOrders = async (cookieHeader: string) => {
+  return await fetchGetWithCookie("/orders/me", cookieHeader);
 };
