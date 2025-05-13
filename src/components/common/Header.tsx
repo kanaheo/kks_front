@@ -1,6 +1,10 @@
-import { cookies } from "next/headers";
-import HeaderClient from "./HeaderClient";
+"use client";
+
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import HeaderClient from "./HeaderClient"; // 그대로 유지해도 OK
+import { useAuth } from "@/contexts/AuthContext";
 
 type JwtPayload = {
   nickname: string;
@@ -8,20 +12,8 @@ type JwtPayload = {
   exp: number;
 };
 
-export default async function Header() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
-  const isLoggedIn = !!token;
-
-  let nickname = "";
-  if (token) {
-    try {
-      const decoded = jwtDecode<JwtPayload>(token);
-      nickname = decoded.nickname;
-    } catch (e) {
-      console.error("JWT 디코딩 실패:", e);
-    }
-  }
+export default function Header() {
+  const { isLoggedIn, nickname } = useAuth();
 
   return <HeaderClient isLoggedIn={isLoggedIn} nickname={nickname} />;
 }
