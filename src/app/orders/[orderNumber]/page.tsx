@@ -3,12 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-type Props = {
-  params: Promise<{ orderNumber: string }>;
-};
-
-export default async function OrderCompletePage(props: Props) {
-  const { orderNumber } = await props.params;
+export default async function OrderCompletePage({ params }: { params: Promise<{ orderNumber: string }> }) {
+  const { orderNumber } = await params;
   if (!orderNumber) return notFound();
   const order = await getOrderByOrderNumber(orderNumber);
   if (!order) return notFound();

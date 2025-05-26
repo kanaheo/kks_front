@@ -1,15 +1,11 @@
 import { getProductById } from "@/lib/api";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Button from "@/components/ui/Button"; // ✅ 형님 컴포넌트 경로
+import Button from "@/components/ui/Button";
 import Link from "next/link";
 
-type Props = {
-  params: Promise<{ id: string }>;
-};
-
-export default async function ProductDetailPage(props: Props) {
-  const { id } = await props.params;
+export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const product = await getProductById(id);
   if (!product) return notFound();
 
