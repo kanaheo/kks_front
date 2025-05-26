@@ -40,3 +40,22 @@ export const getOrderByOrderNumber = async (orderNumber: string) => {
 export const getMyOrders = async (cookieHeader: string) => {
   return await fetchGetWithCookie("/orders/me", cookieHeader);
 };
+
+export const getAllProductIds = async (): Promise<string[]> => {
+  const products = await fetchGet("/products");
+  return products.map((p: { id: string }) => p.id.toString());
+};
+
+export const getAllOrderNumbers = async (): Promise<string[]> => {
+  const orders = await fetchGet("/orders"); // 전체 주문 목록
+  return orders.map((o: { orderNumber: string }) => o.orderNumber);
+};
+
+export const getAllCategories = async (): Promise<string[]> => {
+  try {
+    return await fetchGet("/categories");
+  } catch (e) {
+    console.error("카테고리 로딩 실패", e);
+    return []; // or fallback
+  }
+};
