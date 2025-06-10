@@ -11,7 +11,7 @@ export default async function OrderCompletePage({ params }: { params: Promise<{ 
 
   return (
     <div className="max-w-xl mx-auto px-4 py-20 text-white text-center">
-      <h1 className="text-3xl font-bold mb-4">🎉 주문이 완료되었습니다 !</h1>
+      <h1 className="text-3xl font-bold mb-4">🎉 주문이 완료되었습니 다!</h1>
       <p className="text-lg mb-2">고객님의 주문이 정상적으로 처리되었습니다.</p>
 
       <div className="bg-zinc-800 rounded-lg p-6 mt-6 text-left">

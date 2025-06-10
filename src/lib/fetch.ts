@@ -27,7 +27,7 @@ export const fetchPost = async (url: string, data?: unknown, returnJson = false)
     method: "POST",
     credentials: "include",
     headers: isFormData
-      ? undefined // ✅ FormData일 때는 Content-Type 자동 설정되게 냅둬야 함
+      ? undefined // ✅ FormData일 때는 Content-Type 자동 설정되게 냅둬야  함
       : {
           "Content-Type": "application/json",
         },
