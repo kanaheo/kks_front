@@ -9,7 +9,7 @@ type JwtPayload = {
 
 export function getAuthUser(): { nickname: string; isLoggedIn: boolean } {
   try {
-    const token = Cookies.get("access_token");
+    const token = localStorage.getItem("access_token");
     console.log("token");
     console.log(token);
     if (!token) return { nickname: "", isLoggedIn: false };
