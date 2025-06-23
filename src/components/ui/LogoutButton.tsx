@@ -10,6 +10,7 @@ export const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      localStorage.removeItem("access_token");
       window.location.reload();
     } catch (error) {
       alert("로그아웃 실패");

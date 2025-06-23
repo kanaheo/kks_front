@@ -7,7 +7,7 @@ import Input from "../ui/Input";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import SocialButtons from "../ui/SocialButtons";
-import { signup } from "@/lib/api";
+import { login, signup } from "@/lib/api";
 
 const SignupSchema = z
   .object({
@@ -37,8 +37,10 @@ export default function SignupForm() {
   const onSubmit = async (data: SignupInput) => {
     try {
       await signup(data);
+      const user = await login({ email: data.email, password: data.password });
+      localStorage.setItem("access_token", user.token);
       alert("회원가입 성공!");
-      router.push("/login");
+      window.location.href = "/";
     } catch (err) {
       alert("회원가입 실패!");
     }

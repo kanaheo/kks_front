@@ -29,7 +29,8 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginInput) => {
     try {
       const user = await login(data);
-      router.push("/");
+      localStorage.setItem("access_token", user.token);
+      window.location.href = "/";
     } catch (err) {
       alert("로그인 실패!");
     }
